@@ -1,0 +1,14 @@
+#!/bin/bash
+
+# Make sure only the *default* version of `pathname` gem is available
+export GEM_HOME=vendor/gem_home
+export GEM_PATH=vendor/gem_home
+gem install bundler
+
+# The local `pathname` will be installed to non-default location
+bundle config path vendor/bundle
+bundle install
+
+# `bundle exec` loads pathname from the default location -- the default gem version (0.1.0),
+# while the `Gemfile` requires `0.2.1`.  ==> 🤯
+bundle exec ruby -e 1
